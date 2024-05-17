@@ -1,30 +1,27 @@
 import { Task } from "../models/Task.js";
-import * as bcrypt from 'bcrypt';
 
 export const createTask = async (req, res) => {
-    const {body} = req;
+    const { title, description } = req.body;
     try {
-        const hashPassword = await bcrypt.hash(body.password, 10)
-        console.log(body)
         const task = await Task.create({
-            ...body,
-            password: hashPassword
-        })
+            title,
+            description,
+            createdAt: new Date(),
+        });
 
         res.json({
             ok: true,
             task,
             msg: "Tarea creada correctamente."
-        })
+        });
     } catch (error) {
-        console.log(error)
-        res.status(500)
-            .json({
-                ok: false,
-                msg: "Ha habido un error en el servidor."
-            })
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: "Ha habido un error en el servidor."
+        });
     }
-}
+};
 
 export const listTask = async (req, res) => {
 
@@ -34,10 +31,9 @@ export const listTask = async (req, res) => {
 
     try {
         const taks = await Task.find({ deletedAt: { $in: [null, undefined] }}) // Decimos busca las tareas cuya fecha de eliminaciòn sea null O undefined
-            .select("-password -__v -createdAt")
+            .select("-__v -createdAt")            
             .skip(skip)
             .limit(docsPerPage)
-            // .sort({userName: -1}) atributo segun queremos ordenar (1: asc | -1: desc)
 
         res.json({
             ok: true,
@@ -52,6 +48,32 @@ export const listTask = async (req, res) => {
             })
     }
 }
+
+export const getTaskById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const task = await Task.findById(id).select("-__v -createdAt");
+
+        if (!task) {
+            return res.status(404).json({
+                ok: false,
+                msg: "No se ha encontrado la tarea"
+            });
+        }
+
+        res.json({
+            ok: true,
+            task
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: "Ha habido un error en el servidor."
+        });
+    }
+};
 
 export const editTask = async (req, res) => {
 
@@ -72,7 +94,6 @@ export const editTask = async (req, res) => {
         }
 
         const newTask = await Task.findByIdAndUpdate(id, req.body, { new: true })
-        // const newUser = await User.findOneAndUpdate({email: "unemail@gmail.com"}, req.body, { new: true })
 
         res.json({
             ok: true,
@@ -108,8 +129,7 @@ export const deleteTask = async (req, res) => {
                 })
         }
 
-        await Task.findByIdAndDelete(id); //Elimina Permanentemente el dato (NO SE RECUPERA MÀS!!)
-        //await Task.findByIdAndUpdate(id, {deletedAt: new Date()}, { new: true })
+        await Task.findByIdAndDelete(id); //Elimina Permanentemente el dato 
 
         res.json({
             ok: true,
