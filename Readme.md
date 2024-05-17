@@ -26,21 +26,20 @@ Este proyecto implementa una aplicación para la gestión de tareas, permitiendo
 
 ## Pasos a Realizar
 
-1. **Instalar las dependencias necesarias**: Express, Mongoose
-2. **Configurar la conexión a la base de datos MongoDB utilizando Mongoose.**
-3. **Definir un modelo de tarea utilizando Mongoose.**
-4. **Agregar las rutas de Express para CRUD de tareas**:
+1. Instalar las dependencias necesarias.
+2. Configurar la conexión a la base de datos MongoDB utilizando Mongoose.
+3. Agregar las rutas de Express para CRUD de tareas:
     - Crear una tarea
     - Leer todas las tareas
     - Leer una tarea
     - Actualizar una tarea
     - Eliminar una tarea
-5. **Validar los datos de entrada en la ruta de creación de tarea y crear una nueva tarea en la base de datos utilizando el modelo definido.**
-6. **Obtener todas las tareas existentes en la base de datos utilizando el modelo definido en la ruta de obtención de todas las tareas.**
-7. **Obtener la tarea existente basado en el ID en la ruta de obtención de una tarea.**
-8. **Validar los datos de entrada y editar la tarea en la base de datos utilizando el modelo definido en la ruta de actualización de una tarea.**
-9. **Obtener la tarea a eliminar y borrar de la base de datos la tarea encontrada en la ruta de eliminación de una tarea.**
-10. **Manejar los errores de manera adecuada y devolver las respuestas correspondientes a cada solicitud.**
+5. Validar los datos de entrada en la ruta de creación de tarea y crear una nueva tarea en la base de datos utilizando el modelo definido.
+6. Obtener todas las tareas existentes en la base de datos utilizando el modelo definido en la ruta de obtención de todas las tareas.
+7. Obtener la tarea existente basado en el ID en la ruta de obtención de una tarea.
+8. Validar los datos de entrada y editar la tarea en la base de datos utilizando el modelo definido en la ruta de actualización de una tarea.
+9. Obtener la tarea a eliminar y borrar de la base de datos la tarea encontrada en la ruta de eliminación de una tarea.
+10. Manejar los errores de manera adecuada y devolver las respuestas correspondientes a cada solicitud.
 
 ## Instalación
 
@@ -114,6 +113,6 @@ Este proyecto implementa una aplicación para la gestión de tareas, permitiendo
 
 ## Manejo de Errores
 
-- **500 Internal Server Error**: Errores del servidor.
-- **400 Bad Request**: Errores de validación de datos de entrada.
-- **404 Not Found**: Tarea no encontrada.
+- **500** (Internal Server Error): Errores del servidor.
+- **400** (Bad Request): Errores de validación de datos de entrada.
+- **404** (Not Found): Tarea no encontrada.
